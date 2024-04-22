@@ -1,3 +1,7 @@
 h1.highlight {
     background-color: lightskyblue;
 }
+
+div.post {
+    border: thin solid black;
+}

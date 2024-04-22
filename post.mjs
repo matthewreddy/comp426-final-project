@@ -59,6 +59,23 @@ export class Post {
         return null;
     }
 
+    static async getAllByUserID(user_id) {
+        /*
+        Get array of all posts in JSON by a specific user
+        On success, returns array of all the user's posts. Otherwise, returns empty array
+        */
+        try {
+            let allPosts = await db.all("SELECT * FROM Post WHERE user_id = ?", user_id);
+            return allPosts.map(p => {
+                let post = new Post(p.id, p.title, p.content, p.user_id);
+                return post.json();
+            });
+        } catch (e) {
+            console.error(e);
+        }
+        return [];
+    }
+
     async update(data) {
         /*
         Update a specific post

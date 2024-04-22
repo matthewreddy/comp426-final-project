@@ -20,9 +20,30 @@ let loginResult = document.createElement("p");
 let loginBtn = document.createElement("button");
 loginBtn.innerText = "Login";
 loginBtn.addEventListener("click", async () => {
-    // Joke functionality, just ensuring this works
-    // Ideally, should be able to call on the app and verify the username and password
     loginResult.textContent = `Logged in as username "${username.value}"`;
+    let allPosts = await fetch("http://localhost:3000/posts");
+    let postsJson = await allPosts.json();
+    postsJson.forEach(p => {
+        console.log(p);
+        let postDiv = document.createElement("div");
+
+        let postTitle = document.createElement("h4");
+        postTitle.textContent = p.title;
+
+        let postContent = document.createElement("p");
+        postContent.textContent = p.content;
+
+        let postUser = document.createElement("p");
+        postUser.textContent = p.user_id;
+
+        postDiv.append(postTitle);
+        postDiv.append(postContent);
+        postDiv.append(postUser);
+
+        postDiv.classList.add("post");
+
+        parent.append(postDiv);
+    });
 });
 
 parent.append(header);

@@ -62,6 +62,23 @@ export class User {
         return null;
     }
 
+    static async findByUsername(username) {
+        /*
+        Find a specific user by username (since usernames are forced to be unique)
+        On success, returns the user. If user not found or error occurs, returns null
+        */
+        try {
+            let result = await db.get("SELECT * FROM User WHERE username = ?", username);
+            if (!result) return null;
+            let user = new User(result.id, result.username, result.password);
+            if (result.isAdmin === 1) user.#makeAdmin();
+            return user;
+        } catch (e) {
+            console.error(e);
+        }
+        return null;
+    }
+
     async update(data) {
         /*
         Update a specific user

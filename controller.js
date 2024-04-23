@@ -1,14 +1,8 @@
-import {Model} from "./model.js";
-
 export class Controller {
     #model;
 
     constructor(model) {
         this.#model = model;
-    }
-
-    #doAsync() {
-        return new Promise(r => setTimeout(r, 0));
     }
 
     async doesUserExist(username) {
@@ -17,5 +11,13 @@ export class Controller {
 
     async validate(username, password) {
         return await this.#model.validate(username, password);
+    }
+
+    async getAllPosts() {
+        return await this.#model.getAllPosts();
+    }
+
+    async getUserByID(id) {
+        return await this.#model.getUserByID(id);
     }
 }

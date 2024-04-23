@@ -31,4 +31,24 @@ export class Model extends EventTarget {
         }
         return false;
     }
+
+    async getAllPosts() {
+        try {
+            let allPosts = await fetch("http://localhost:3000/posts");
+            return await allPosts.json();
+        } catch (e) {
+            console.error(e);
+        }
+        return [];
+    }
+
+    async getUserByID(id) {
+        try {
+            let user = await fetch("http://localhost:3000/users/" + id);
+            return await user.json();
+        } catch (e) {
+            console.error(e);
+        }
+        return null;
+    }
 }

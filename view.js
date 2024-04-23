@@ -1,6 +1,3 @@
-import {Model} from "./model.js";
-import {Controller} from "./controller.js";
-
 export class View {
     #model;
     #controller;
@@ -67,9 +64,8 @@ export class View {
             br2.hidden = true;
             loginBtn.hidden = true;
 
-            let allPosts = await fetch("http://localhost:3000/posts");
-            let postsJson = await allPosts.json();
-            postsJson.forEach(async p => {
+            let posts = await this.#controller.getAllPosts();
+            posts.forEach(async p => {
                 console.log(p);
                 let postDiv = document.createElement("div");
 
@@ -80,9 +76,8 @@ export class View {
                 postContent.textContent = p.content;
 
                 let postUser = document.createElement("p");
-                let user = await fetch("http://localhost:3000/users/" + p.user_id);
-                let userJson = await user.json();
-                postUser.textContent = userJson.username;
+                let user = await this.#controller.getUserByID(p.user_id);
+                postUser.textContent = user.username;
 
                 postDiv.append(postTitle);
                 postDiv.append(postContent);

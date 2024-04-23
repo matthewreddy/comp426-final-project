@@ -79,6 +79,21 @@ export class User {
         return null;
     }
 
+    static async validate(username, password) {
+        /*
+        Validate a given password for a specific user
+        If given password matches stored password for user, returns true. Otherwise, returns false
+        */
+        try {
+            let result = await db.get("SELECT * FROM User WHERE username = ?", username);
+            if (!result) return false;
+            return password === result.password;
+        } catch (e) {
+            console.error(e);
+        }
+        return false;
+    }
+
     async update(data) {
         /*
         Update a specific user

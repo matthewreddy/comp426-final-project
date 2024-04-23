@@ -4,4 +4,6 @@ h1.highlight {
 
 div.post {
     border: thin solid black;
+    margin: 2px;
+    padding: 5px;
 }

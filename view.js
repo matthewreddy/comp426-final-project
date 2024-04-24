@@ -17,21 +17,6 @@ export class View {
         header.textContent = "ThisProjectIsADub.com";
         header.classList.add("header");
 
-        let usernamePasswordPrompt = document.createElement("p");
-        usernamePasswordPrompt.textContent = "Enter your username and password.";
-
-        let username = document.createElement("input");
-        username.type = "text";
-        username.placeholder = "Username";
-
-        let br1 = document.createElement("br");
-
-        let password = document.createElement("input");
-        password.type = "password";
-        password.placeholder = "Password";
-
-        let br2 = document.createElement("br");
-
         let loginResult = document.createElement("p");
         loginResult.textContent = `Welcome back, ${this.#user.username}!`;
 

@@ -20,4 +20,8 @@ export class Controller {
     async getUserByID(id) {
         return await this.#model.getUserByID(id);
     }
+
+    async deletePost(id) {
+        return await this.#model.deletePost(id);
+    }
 }

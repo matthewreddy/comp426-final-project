@@ -19,7 +19,7 @@ export class View {
 
         let loginResult = document.createElement("p");
         loginResult.textContent = `Welcome back, ${this.#user.username}!`;
-
+        
         let posts = await this.#controller.getAllPosts();
         posts.forEach(async p => {
             console.log(p);

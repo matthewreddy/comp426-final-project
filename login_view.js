@@ -12,7 +12,7 @@ export class LoginView {
     render(parent) {
         let header = document.createElement("h1");
         header.textContent = "This project is a dub.";
-        header.classList.add("highlight");
+        header.classList.add("header");
 
         let usernamePasswordPrompt = document.createElement("p");
         usernamePasswordPrompt.textContent = "Enter your username and password.";
@@ -52,15 +52,17 @@ export class LoginView {
 
         // redirect.append(loginBtn);
 
+        let loginContainer = document.createElement("div")
+        loginContainer.classList.add("loginContainer")
         parent.append(header);
-        parent.append(usernamePasswordPrompt);
-        parent.append(username);
-        parent.append(br1);
-        parent.append(password);
-        parent.append(br2);
-        parent.append(loginBtn);
+        loginContainer.append(usernamePasswordPrompt);
+        loginContainer.append(username);
+        loginContainer.append(br1);
+        loginContainer.append(password);
+        loginContainer.append(br2);
+        loginContainer.append(loginBtn);
         parent.append(loginResult);
-
+        parent.append(loginContainer)
         this.#model.addEventListener("login", e => {
             sessionStorage.setItem("user", JSON.stringify(e.detail));
             console.log(e.detail);

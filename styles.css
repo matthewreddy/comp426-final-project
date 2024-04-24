@@ -1,9 +1,47 @@
-h1.highlight {
-    background-color: lightskyblue;
+body {
+    align-content: center;
+    display: flex;
+    flex-direction: column;
+    margin: 0px;
+}
+
+h1.header {
+    background-color: #7BAFD4;
+    width: 100%;
+    margin: 0px;
+    padding-top: 25px;
+    padding-left: 30px;
+    padding-bottom: 25px;
 }
 
 div.post {
-    border: thin solid black;
-    margin: 2px;
-    padding: 5px;
+    padding-left: 10px;
+    margin-left: 17%;
+    border: solid black;
+    border-width: 2px;
+    width: 66%;
+    margin-bottom: 15px;
+    background: #eeeeee;
+}
+
+div.loginContainer {
+    width: 20%;
+    height: 200px;
+    margin-left: 40%;
+    margin-top: 100px;
+    text-align: center;
+    background: #eeeeee;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+  }
+  
+  .card-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+
+.loginContainer < p {
+    padding-top: 10px;
 }

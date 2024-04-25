@@ -4,12 +4,14 @@ export class Post {
     #id;
     #title;
     #content;
+    #timestamp;
     #user_id;
 
-    constructor(id, title, content, user_id) {
+    constructor(id, title, content, timestamp, user_id) {
         this.#id = id;
         this.#title = title;
         this.#content = content;
+        this.#timestamp = timestamp;
         this.#user_id = user_id;
     }
 
@@ -19,8 +21,8 @@ export class Post {
         On success, returns the post. Otherwise, returns null
         */
         try {
-            let result = await db.run("INSERT INTO Post VALUES (NULL, ?, ?, ?)", data.title, data.content, data.user_id);
-            return new Post(result.lastID, data.title, data.content, data.user_id);
+            let result = await db.run("INSERT INTO Post VALUES (NULL, ?, ?, ?, ?)", data.title, data.content, Date.now(), data.user_id);
+            return new Post(result.lastID, data.title, data.content, Date.now(), data.user_id);
         } catch (e) {
             console.error(e);
         }
@@ -33,9 +35,9 @@ export class Post {
         On success, returns array of all posts. Otherwise, returns empty array
         */
         try {
-            let allPosts = await db.all("SELECT * FROM Post");
+            let allPosts = await db.all("SELECT * FROM Post ORDER BY timestamp DESC");
             return allPosts.map(p => {
-                let post = new Post(p.id, p.title, p.content, p.user_id);
+                let post = new Post(p.id, p.title, p.content, p.timestamp, p.user_id);
                 return post.json();
             });
         } catch (e) {
@@ -52,7 +54,7 @@ export class Post {
         try {
             let result = await db.get("SELECT * FROM Post WHERE id = ?", id);
             if (!result) return null;
-            return new Post(result.id, result.title, result.content, result.user_id);
+            return new Post(result.id, result.title, result.content, result.timestamp, result.user_id);
         } catch (e) {
             console.error(e);
         }
@@ -67,7 +69,7 @@ export class Post {
         try {
             let allPosts = await db.all("SELECT * FROM Post WHERE user_id = ?", user_id);
             return allPosts.map(p => {
-                let post = new Post(p.id, p.title, p.content, p.user_id);
+                let post = new Post(p.id, p.title, p.content, p.timestamp, p.user_id);
                 return post.json();
             });
         } catch (e) {
@@ -84,10 +86,11 @@ export class Post {
         try {
             let newTitle = data.title !== undefined ? data.title : this.#title;
             let newContent = data.content !== undefined ? data.content : this.#content;
-            await db.run("UPDATE Post SET title = ?, content = ? WHERE id = ?", newTitle, newContent, this.#id);
+            await db.run("UPDATE Post SET title = ?, content = ?, timestamp = ? WHERE id = ?", newTitle, newContent, Date.now(), this.#id);
             this.#title = newTitle;
             this.#content = newContent;
-            return new Post(this.#id, this.#title, this.#content, this.#user_id);
+            this.#timestamp = Date.now();
+            return new Post(this.#id, this.#title, this.#content, this.#timestamp, this.#user_id);
         } catch (e) {
             console.error(e);
         }
@@ -114,6 +117,7 @@ export class Post {
             id: this.#id,
             title: this.#title,
             content: this.#content,
+            timestamp: this.#timestamp,
             user_id: this.#user_id
         };
     }

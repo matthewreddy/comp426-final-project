@@ -53,10 +53,14 @@ export class View {
         createPostDiv.append(contentInput);
         createPostDiv.append(document.createElement("br"));
         createPostDiv.append(finalCreateBtn);
+
+        parent.append(header);
+        parent.append(loginResult);
+        parent.append(createBtn);
+        parent.append(createPostDiv);
         
         let posts = await this.#controller.getAllPosts();
-        posts.forEach(async p => {
-            console.log(p);
+        for (let p of posts) {
             let postDiv = document.createElement("div");
 
             let postTitle = document.createElement("h4");
@@ -69,6 +73,10 @@ export class View {
             let user = await this.#controller.getUserByID(p.user_id);
             postUser.textContent = user.username;
 
+            let postDate = document.createElement("p");
+            let date = new Date(p.timestamp);
+            postDate.textContent = `${date.toLocaleDateString()} at ${date.toLocaleTimeString()}`;
+
             let deleteBtn = document.createElement("button");
             deleteBtn.innerText = "Delete";
             deleteBtn.addEventListener("click", async () => {
@@ -78,6 +86,7 @@ export class View {
             postDiv.append(postTitle);
             postDiv.append(postContent);
             postDiv.append(postUser);
+            postDiv.append(postDate);
             if (user.username === this.#user.username || this.#user.isAdmin) {
                 postDiv.append(deleteBtn);
             }
@@ -85,12 +94,7 @@ export class View {
             postDiv.classList.add("post");
 
             parent.append(postDiv);
-        });
-
-        parent.append(header);
-        parent.append(loginResult);
-        parent.append(createBtn);
-        parent.append(createPostDiv);
+        }
 
         this.#model.addEventListener("createpost", () => {
             createPostDiv.hidden = false;

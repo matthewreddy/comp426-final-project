@@ -49,12 +49,19 @@ export class View {
             await this.#controller.createPost(titleInput.value, contentInput.value, this.#user.id);
         });
 
+        let cancelBtn = document.createElement("button");
+        cancelBtn.innerText = "Cancel";
+        cancelBtn.addEventListener("click", () => {
+            createPostDiv.hidden = true;
+        });
+
         //createPostDiv.append(titleLabel);
         createPostDiv.append(titleInput);
         //createPostDiv.append(contentLabel);
         createPostDiv.append(contentInput);
         createPostDiv.append(document.createElement("br"));
         createPostDiv.append(finalCreateBtn);
+        createPostDiv.append(cancelBtn);
 
         parent.append(header);
         parent.append(loginResult);

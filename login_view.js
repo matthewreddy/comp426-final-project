@@ -1,5 +1,3 @@
-import {View} from "./view.js";
-
 export class LoginView {
     #model;
     #controller;
@@ -11,7 +9,7 @@ export class LoginView {
 
     render(parent) {
         let header = document.createElement("h1");
-        header.textContent = "This project is a dub.";
+        header.textContent = "ThisProjectIsADub.com";
         header.classList.add("header");
 
         let usernamePasswordPrompt = document.createElement("p");
@@ -31,9 +29,6 @@ export class LoginView {
 
         let loginResult = document.createElement("p");
 
-        // let redirect = document.createElement("a");
-        // redirect.href = "index.html";
-
         let loginBtn = document.createElement("button");
         loginBtn.innerText = "Login";
         loginBtn.addEventListener("click", async () => {
@@ -50,8 +45,6 @@ export class LoginView {
             }
         });
 
-        // redirect.append(loginBtn);
-
         let loginContainer = document.createElement("div")
         loginContainer.classList.add("loginContainer")
         parent.append(header);
@@ -65,16 +58,7 @@ export class LoginView {
         parent.append(loginContainer)
         this.#model.addEventListener("login", e => {
             sessionStorage.setItem("user", JSON.stringify(e.detail));
-            console.log(e.detail);
             window.location.href = "index.html";
-        });
-
-        this.#model.addEventListener("adminlogin", async e => {
-            // Joke functionality for now. 
-            // More just proof of concept for features appearing only for admins.
-            let adminText = document.createElement("p");
-            adminText.textContent = `You are an admin, ${e.detail.username}!`;
-            parent.append(adminText);
         });
 
     }

@@ -55,4 +55,24 @@ export class Model extends EventTarget {
     async deletePost(id) {
         await fetch("http://localhost:3000/posts/" + id, {method: "DELETE"});
     }
+
+    createPostRequest() {
+        this.dispatchEvent(new Event("createpost"));
+    }
+
+    async createPost(title, content, userID) {
+        let postStr = JSON.stringify({
+            title: title,
+            content: content,
+            user_id: userID
+        });
+        let post = await fetch("http://localhost:3000/posts", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: postStr
+        });
+        return await post.json();
+    }
 }

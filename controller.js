@@ -24,4 +24,12 @@ export class Controller {
     async deletePost(id) {
         return await this.#model.deletePost(id);
     }
+
+    createPostRequest() {
+        return this.#model.createPostRequest();
+    }
+
+    async createPost(title, content, userID) {
+        return await this.#model.createPost(title, content, userID);
+    }
 }

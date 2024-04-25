@@ -19,6 +19,40 @@ export class View {
 
         let loginResult = document.createElement("p");
         loginResult.textContent = `Welcome back, ${this.#user.username}!`;
+
+        let createBtn = document.createElement("button");
+        createBtn.innerText = "Make New Post";
+        createBtn.addEventListener("click", () => {
+            this.#controller.createPostRequest();
+        });
+
+        let createPostDiv = document.createElement("div");
+        createPostDiv.hidden = true;
+
+        let titleLabel = document.createElement("p");
+        let titleInput = document.createElement("input");
+
+        titleLabel.textContent = "Title: ";
+        titleInput.placeholder = "Title your amazing post";
+
+        let contentLabel = document.createElement("p");
+        let contentInput = document.createElement("textarea");
+
+        contentLabel.textContent = "Content: ";
+        contentInput.placeholder = "The main content of your post goes here!";
+
+        let finalCreateBtn = document.createElement("button");
+        finalCreateBtn.innerText = "Post!";
+        finalCreateBtn.addEventListener("click", async () => {
+            await this.#controller.createPost(titleInput.value, contentInput.value, this.#user.id);
+        });
+
+        createPostDiv.append(titleLabel);
+        createPostDiv.append(titleInput);
+        createPostDiv.append(contentLabel);
+        createPostDiv.append(contentInput);
+        createPostDiv.append(document.createElement("br"));
+        createPostDiv.append(finalCreateBtn);
         
         let posts = await this.#controller.getAllPosts();
         posts.forEach(async p => {
@@ -44,7 +78,7 @@ export class View {
             postDiv.append(postTitle);
             postDiv.append(postContent);
             postDiv.append(postUser);
-            if (user.username === this.#user.username) {
+            if (user.username === this.#user.username || this.#user.isAdmin) {
                 postDiv.append(deleteBtn);
             }
 
@@ -55,7 +89,15 @@ export class View {
 
         parent.append(header);
         parent.append(loginResult);
+        parent.append(createBtn);
+        parent.append(createPostDiv);
+
+        this.#model.addEventListener("createpost", () => {
+            createPostDiv.hidden = false;
+        });
     }
+
+
 
 
 }

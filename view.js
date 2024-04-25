@@ -21,24 +21,26 @@ export class View {
         loginResult.textContent = `Welcome back, ${this.#user.username}!`;
 
         let createBtn = document.createElement("button");
-        createBtn.innerText = "Make New Post";
+        createBtn.id = "createButton";
+        createBtn.innerText = "+";
         createBtn.addEventListener("click", () => {
             this.#controller.createPostRequest();
         });
 
         let createPostDiv = document.createElement("div");
+        createPostDiv.classList.add("newPost");
         createPostDiv.hidden = true;
 
-        let titleLabel = document.createElement("p");
+        //let titleLabel = document.createElement("p");
         let titleInput = document.createElement("input");
 
-        titleLabel.textContent = "Title: ";
+        //titleLabel.textContent = "Title: ";
         titleInput.placeholder = "Title your amazing post";
 
-        let contentLabel = document.createElement("p");
+        //let contentLabel = document.createElement("p");
         let contentInput = document.createElement("textarea");
 
-        contentLabel.textContent = "Content: ";
+        //contentLabel.textContent = "Content: ";
         contentInput.placeholder = "The main content of your post goes here!";
 
         let finalCreateBtn = document.createElement("button");
@@ -47,9 +49,9 @@ export class View {
             await this.#controller.createPost(titleInput.value, contentInput.value, this.#user.id);
         });
 
-        createPostDiv.append(titleLabel);
+        //createPostDiv.append(titleLabel);
         createPostDiv.append(titleInput);
-        createPostDiv.append(contentLabel);
+        //createPostDiv.append(contentLabel);
         createPostDiv.append(contentInput);
         createPostDiv.append(document.createElement("br"));
         createPostDiv.append(finalCreateBtn);

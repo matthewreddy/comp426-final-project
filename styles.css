@@ -16,11 +16,12 @@ h1.header {
 
 div.post {
     padding-left: 10px;
+    padding-bottom: 10px;
     margin-left: 17%;
-    border: solid black;
-    border-width: 2px;
+    border: solid #dddddd;
+    border-width: 1px;
     width: 66%;
-    margin-bottom: 15px;
+    margin-bottom: 1px;
     background: #eeeeee;
 }
 
@@ -42,6 +43,50 @@ div.loginContainer {
     margin-bottom: 10px;
   }
 
-.loginContainer < p {
-    padding-top: 10px;
+div.newPost {
+    padding: 10px 0px 10px 10px;
+    margin-left: 17%;
+    border: solid black;
+    border-width: 2px;
+    width: 66%;
+    margin-bottom: 15px;
+    background: #eeeeee;
+}
+.newPost textArea {
+    width: 95%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    resize: vertical;
+    min-height: 100px;
+    font-size: 16px; 
+    line-height: 1.5; 
+    color: #333;
+    background-color: #f9f9f9; 
+    outline: none; 
+}
+
+.newPost input {
+    width: 95%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    resize: vertical;
+    min-height: 20px;
+    font-size: 16px; 
+    line-height: 1.5; 
+    color: #333;
+    background-color: #f9f9f9; 
+    outline: none; 
+}
+
+#createButton {
+    width: 50px;
+    height: 50px;
+    margin-left: 17%;
+    margin-bottom: 10px;
+    font-size: 30px;
+    border: 2px solid black;
 }

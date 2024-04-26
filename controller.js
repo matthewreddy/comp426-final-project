@@ -21,6 +21,14 @@ export class Controller {
         return await this.#model.getUserByID(id);
     }
 
+    editPostRequest() {
+        return this.#model.editPostRequest();
+    }
+
+    async editPost(title, content, userID, postID) {
+        return await this.#model.editPost(title, content, userID, postID);
+    }
+
     async deletePost(id) {
         return await this.#model.deletePost(id);
     }
@@ -35,5 +43,9 @@ export class Controller {
 
     async createUser(username, password) {
         return await this.#model.createUser(username, password);
+    }
+
+    async logout() {
+        return await this.#model.logout();
     }
 }

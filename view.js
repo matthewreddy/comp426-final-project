@@ -28,6 +28,13 @@ export class View {
             this.#controller.createPostRequest();
         });
 
+        let logoutBtn = document.createElement("button");
+        logoutBtn.id = "logoutButton";
+        logoutBtn.innerText = "Logout";
+        logoutBtn.addEventListener("click", async () => {
+            await this.#controller.logout();
+        });
+
         let createPostDiv = document.createElement("div");
         createPostDiv.classList.add("newPost");
         createPostDiv.hidden = true;
@@ -69,9 +76,11 @@ export class View {
         parent.append(header);
         parent.append(loginResult);
         parent.append(createBtn);
+        parent.append(logoutBtn);
         parent.append(createPostDiv);
         
         let posts = await this.#controller.getAllPosts();
+        let currentPostID;
         for (let p of posts) {
             let postDiv = document.createElement("div");
 
@@ -92,6 +101,15 @@ export class View {
             //let postDate = document.createElement("p");
             //postDate.textContent = `${date.toLocaleDateString()} at ${date.toLocaleTimeString()}`;
 
+            let editBtn = document.createElement("button");
+            editBtn.innerText = "Edit";
+            editBtn.addEventListener("click", async () => {
+                currentPostID = p.id;
+                editTitle.value = p.title;
+                editContent.value = p.content;
+                this.#controller.editPostRequest();
+            });
+
             let deleteBtn = document.createElement("button");
             deleteBtn.classList.add("deleteButton");
             deleteBtn.innerText = "\u{292B}";
@@ -104,6 +122,7 @@ export class View {
             postDiv.append(postContent);
             //postDiv.append(postDate);
             if (user.username === this.#user.username || this.#user.isAdmin) {
+                postDiv.append(editBtn);
                 postDiv.append(deleteBtn);
             }
 
@@ -111,6 +130,36 @@ export class View {
 
             parent.append(postDiv);
         }
+
+        let editPostDiv = document.createElement("div");
+        editPostDiv.classList.add("editPost");
+        editPostDiv.hidden = true;
+
+        let editTitle = document.createElement("input");
+
+        let editContent = document.createElement("textarea");
+
+        let finalEditBtn = document.createElement("button");
+        finalEditBtn.innerText = "\u{2713}";
+        finalEditBtn.style.left = "10px";
+        finalEditBtn.addEventListener("click", async () => {
+            await this.#controller.editPost(editTitle.value, editContent.value, this.#user.id, currentPostID);
+        });
+
+        let cancelEditBtn = document.createElement("button");
+        cancelEditBtn.innerText = "\u{292B}";
+        cancelEditBtn.style.right = "10px"
+        cancelEditBtn.addEventListener("click", () => {
+            editPostDiv.hidden = true;
+        });
+
+        editPostDiv.append(editTitle);
+        editPostDiv.append(editContent);
+        editPostDiv.append(document.createElement("br"));
+        editPostDiv.append(finalEditBtn);
+        editPostDiv.append(cancelEditBtn);
+
+        parent.append(editPostDiv);
 
         let weatherURL = 'https://api.weather.gov/points/35.911089,-79.047989'
         let sideContent = document.createElement("div");
@@ -164,12 +213,17 @@ export class View {
             createPostDiv.hidden = false;
         });
 
+        this.#model.addEventListener("editpost", () => {
+            editPostDiv.hidden = false;
+        });
+
         this.#model.addEventListener("refresh", () => {
             window.location.href = "index.html";
         });
+
+        this.#model.addEventListener("logout", () => {
+            window.location.href = "login.html";
+        });
+
     }
-
-
-
-
 }

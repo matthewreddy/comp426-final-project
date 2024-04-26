@@ -52,6 +52,27 @@ export class Model extends EventTarget {
         return null;
     }
 
+    editPostRequest(){
+        this.dispatchEvent(new Event("editpost"));
+    }
+
+    async editPost(title, content, userID, postID) {
+        let postStr = JSON.stringify({
+            title: title,
+            content: content,
+            user_id: userID
+        });
+        let post = await fetch("http://localhost:3000/posts/" + postID, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: postStr
+        });
+        await post.json();
+        this.dispatchEvent(new Event("refresh"));
+    }
+
     async deletePost(id) {
         await fetch("http://localhost:3000/posts/" + id, {method: "DELETE"});
         this.dispatchEvent(new Event("refresh"));
@@ -97,5 +118,9 @@ export class Model extends EventTarget {
         } else {
             this.dispatchEvent(new Event("createuserfail"));
         }
+    }
+
+    async logout() {
+        this.dispatchEvent(new CustomEvent("logout"));
     }
 }

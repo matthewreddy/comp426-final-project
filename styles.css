@@ -1,20 +1,29 @@
+:root {
+    --backgroundColor: #eee;
+    --titleColor: #d9e8ff;
+    --borderColor: #a7b3c7;
+    --buttonColor: #ddd;
+}
+
 body {
     align-content: center;
     display: flex;
     flex-direction: column;
     margin: 0px;
-    font-family:Big Caslon, serif;
+    font-family: Constantia, serif;
     letter-spacing: 1px;
     font-weight: 100;
+    background-image: url("imgs/background.jpg")
 }
 
 h1.header {
-    background-color: #7BAFD4;
+    background-color: var(--titleColor);
     width: 100%;
     margin: 0px;
     padding-top: 25px;
     padding-left: 30px;
     padding-bottom: 25px;
+    
 }
 
 div.loginContainer {
@@ -37,6 +46,7 @@ div.loginContainer {
 #loginResult {
     text-align: center;
     font-size: 30px;
+    font-weight: 1000;
     /* font-weight: bold;
     text-decoration: underline;
     text-decoration-color: #7BAFD4; */
@@ -47,22 +57,26 @@ div.loginContainer {
     margin-left: 17%;
     margin-bottom: 10px;
     font-size: 30px;
-    border: solid #ccc;
+    border: solid var(--borderColor);
     border-width: 1px;
+    background: var(--buttonColor)
 }
 div.newPost {
-    padding: 10px 0px 10px 10px;
+    padding: 10px 0px 35px 0px;
     margin-left: 17%;
-    border: solid #ddd;
     border-width: 1px;
     width: 66%;
-    background: #eeeeee;
+    background: var(--backgroundColor);
+    margin-bottom: 15px;
+    border: solid var(--borderColor) 1px;
+    position: relative;
 }
 .newPost textArea {
     width: 95%;
     padding: 10px;
     margin-bottom: 10px;
-    border: 1px solid #ccc;
+    margin-left: 10px;
+    border: 1px solid var(--borderColor);
     border-radius: 5px;
     resize: vertical;
     min-height: 100px;
@@ -76,7 +90,8 @@ div.newPost {
     width: 95%;
     padding: 10px;
     margin-bottom: 10px;
-    border: 1px solid #ccc;
+    margin-left: 10px;
+    border: 1px solid var(--borderColor);
     border-radius: 5px;
     resize: vertical;
     min-height: 20px;
@@ -86,34 +101,46 @@ div.newPost {
     background-color: #f9f9f9; 
     outline: none; 
 }
+.newPost button {
+    position: absolute;
+    bottom: 7px;
+    width: 35px;
+    height: 35px;
+    font-size: 25px;
+    background: var(--buttonColor);
+    border: solid var(--borderColor) 1px;
+}
 
 div.post {
     padding-left: 0px;
     padding-bottom: 10px;
     margin-left: 17%;
-    border: solid #bbb;
+    border: solid var(--borderColor);
     border-width: 1px;
     width: 66%;
     margin-bottom: 0px;
-    background: #eeeeee;
+    background: var(--backgroundColor);
     position: relative;
     margin-bottom: 15px;
     min-height: 150px;
 }
 .postHeader {
-    background: #ddd;
+    background: var(--titleColor);
     padding: 10px 0px 10px 0px;
     margin: 0px;
 }
 .post p,h4 {
+    font-weight: normal;
     padding-left: 15px;
 }
 .deleteButton {
     position: absolute;
     right: 10px;
     top: 2px;
-    width: 30px;
-    height: 30px;
-    font-size: 20px;
+    width: 35px;
+    height: 35px;
+    font-size: 25px;
     text-align: center;
+    background: var(--buttonColor);
+    border: solid 1px var(--borderColor)
 }

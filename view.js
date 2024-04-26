@@ -45,13 +45,15 @@ export class View {
         contentInput.placeholder = "The main content of your post goes here!";
 
         let finalCreateBtn = document.createElement("button");
-        finalCreateBtn.innerText = "Post!";
+        finalCreateBtn.innerText = "\u{2713}";
+        finalCreateBtn.style.left = "10px";
         finalCreateBtn.addEventListener("click", async () => {
             await this.#controller.createPost(titleInput.value, contentInput.value, this.#user.id);
         });
 
         let cancelBtn = document.createElement("button");
-        cancelBtn.innerText = "Cancel";
+        cancelBtn.innerText = "\u{292B}";
+        cancelBtn.style.right = "10px"
         cancelBtn.addEventListener("click", () => {
             createPostDiv.hidden = true;
         });

@@ -13,7 +13,7 @@ export class SignupView {
         header.classList.add("header");
 
         let usernameLabel = document.createElement("p");
-        usernameLabel.textContent = "Provide a username. Usernames must be unique.";
+        usernameLabel.textContent = "Provide a unique username.";
 
         let usernameInput = document.createElement("input");
         usernameInput.placeholder = "johndoe";

@@ -3,6 +3,7 @@
     --titleColor: #d9e8ff;
     --borderColor: #a7b3c7;
     --buttonColor: #ddd;
+    --darkAccent: #80b7d1;
 }
 
 body {
@@ -38,15 +39,23 @@ div.loginContainer {
     padding: 20px;
 }
 
+.loginContainer a {
+    color: var(--darkAccent);
+}
 .card-title {
     font-size: 24px;
     font-weight: bold;
     margin-bottom: 10px;
 }
 #loginResult {
-    text-align: center;
+    margin-left: 35%;
+    width: 30%;
     font-size: 30px;
     font-weight: 1000;
+    text-align: center;
+    padding: 15px;
+    border: solid 1px var(--borderColor);
+    background: var(--backgroundColor);
     /* font-weight: bold;
     text-decoration: underline;
     text-decoration-color: #7BAFD4; */
@@ -65,7 +74,7 @@ div.newPost {
     padding: 10px 0px 35px 0px;
     margin-left: 17%;
     border-width: 1px;
-    width: 66%;
+    width: 55%;
     background: var(--backgroundColor);
     margin-bottom: 15px;
     border: solid var(--borderColor) 1px;
@@ -117,7 +126,7 @@ div.post {
     margin-left: 17%;
     border: solid var(--borderColor);
     border-width: 1px;
-    width: 66%;
+    width: 55%;
     margin-bottom: 0px;
     background: var(--backgroundColor);
     position: relative;
@@ -143,4 +152,16 @@ div.post {
     text-align: center;
     background: var(--buttonColor);
     border: solid 1px var(--borderColor)
+}
+
+#sideContent {
+    width: 200px;
+    height: 1000px;
+    border: solid var(--borderColor) 1px;
+    position: absolute;
+    left: 72%;
+    top: 273px;
+    margin-left: 5px;
+    background: var(--backgroundColor);
+    text-align: center;
 }

@@ -112,6 +112,54 @@ export class View {
             parent.append(postDiv);
         }
 
+        let weatherURL = 'https://api.weather.gov/points/35.911089,-79.047989'
+        let sideContent = document.createElement("div");
+        sideContent.id = "sideContent";
+
+        await fetch(weatherURL)
+            .then(response => {
+                if (!response.ok) {
+                throw new Error('Could not get weather data');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log(data);
+                let forecast = data.properties.forecast;
+                fetch(forecast)
+            .then(response => {
+                if (!response.ok) {
+                throw new Error('Could not get forecast data');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log(data)
+                let forecastHeute = data;
+                let weatherGreeting = document.createElement("p");
+
+                weatherGreeting.append("Right now in Chapel Hill")
+                sideContent.append(weatherGreeting);
+
+                let heute = forecastHeute.properties.periods[0];
+
+                let weather = document.createElement("p");
+
+                weatherGreeting.append("Right now in Chapel Hill")
+                sideContent.append(weatherGreeting);
+
+                parent.append(sideContent);
+
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+
+        
         this.#model.addEventListener("createpost", () => {
             createPostDiv.hidden = false;
         });

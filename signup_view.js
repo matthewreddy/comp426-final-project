@@ -35,18 +35,23 @@ export class SignupView {
         resultText.hidden = true;
 
         let returnLink = document.createElement("a");
-        returnLink.textContent = "Click here to return to the login page.";
+        returnLink.textContent = "Return to login";
         returnLink.href = "login.html";
 
+        let signUpContainer = document.createElement("div");
+        signUpContainer.classList.add("loginContainer")
+
         parent.append(header);
-        parent.append(usernameLabel);
-        parent.append(usernameInput);
-        parent.append(passwordLabel);
-        parent.append(passwordInput);
-        parent.append(document.createElement("br"));
-        parent.append(submitBtn);
-        parent.append(resultText);
-        parent.append(returnLink);
+        signUpContainer.append(usernameLabel);
+        signUpContainer.append(usernameInput);
+        signUpContainer.append(passwordLabel);
+        signUpContainer.append(passwordInput);
+        signUpContainer.append(document.createElement("br"));
+        signUpContainer.append(submitBtn);
+        signUpContainer.append(document.createElement("br"))
+        signUpContainer.append(resultText);
+        signUpContainer.append(returnLink);
+        parent.append(signUpContainer);
 
         this.#model.addEventListener("createusersuccess", e => {
             resultText.hidden = false;

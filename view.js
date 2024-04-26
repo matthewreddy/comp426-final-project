@@ -18,6 +18,7 @@ export class View {
         header.classList.add("header");
 
         let loginResult = document.createElement("p");
+        loginResult.id = "loginResult";
         loginResult.textContent = `Welcome back, ${this.#user.username}!`;
 
         let createBtn = document.createElement("button");

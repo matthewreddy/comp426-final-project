@@ -54,6 +54,7 @@ export class Model extends EventTarget {
 
     async deletePost(id) {
         await fetch("http://localhost:3000/posts/" + id, {method: "DELETE"});
+        this.dispatchEvent(new Event("refresh"));
     }
 
     createPostRequest() {
@@ -73,6 +74,28 @@ export class Model extends EventTarget {
             },
             body: postStr
         });
-        return await post.json();
+        await post.json();
+        this.dispatchEvent(new Event("refresh"));
+    }
+
+    async createUser(username, password) {
+        let userExists = await this.doesUserExist(username);
+        if (userExists === false) {
+            let userStr = JSON.stringify({
+                username: username,
+                password: password
+            });
+            let user = await fetch("http://localhost:3000/users", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: userStr
+            });
+            let userJson = await user.json();
+            this.dispatchEvent(new CustomEvent("createusersuccess", {detail: userJson}));
+        } else {
+            this.dispatchEvent(new Event("createuserfail"));
+        }
     }
 }

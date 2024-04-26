@@ -32,4 +32,8 @@ export class Controller {
     async createPost(title, content, userID) {
         return await this.#model.createPost(title, content, userID);
     }
+
+    async createUser(username, password) {
+        return await this.#model.createUser(username, password);
+    }
 }

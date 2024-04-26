@@ -54,8 +54,15 @@ export class LoginView {
         loginContainer.append(password);
         loginContainer.append(br2);
         loginContainer.append(loginBtn);
-        parent.append(loginResult);
+        loginContainer.append(loginResult);
+
         parent.append(loginContainer)
+
+        let createUser = document.createElement("p");
+        createUser.innerHTML = `Don't have an account yet? <a href="signup.html">Click here to sign up!</a>`;
+
+        parent.append(createUser);
+
         this.#model.addEventListener("login", e => {
             sessionStorage.setItem("user", JSON.stringify(e.detail));
             window.location.href = "index.html";

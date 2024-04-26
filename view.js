@@ -113,6 +113,10 @@ export class View {
         this.#model.addEventListener("createpost", () => {
             createPostDiv.hidden = false;
         });
+
+        this.#model.addEventListener("refresh", () => {
+            window.location.href = "index.html";
+        });
     }
 
 

@@ -79,24 +79,28 @@ export class View {
             let postContent = document.createElement("p");
             postContent.textContent = p.content;
 
-            let postUser = document.createElement("p");
-            let user = await this.#controller.getUserByID(p.user_id);
-            postUser.textContent = user.username;
-
-            let postDate = document.createElement("p");
             let date = new Date(p.timestamp);
-            postDate.textContent = `${date.toLocaleDateString()} at ${date.toLocaleTimeString()}`;
+            let postUser = document.createElement("p");
+            postUser.classList.add("postHeader");
+            let user = await this.#controller.getUserByID(p.user_id);
+            postUser.textContent = user.username + 
+                " : " + 
+                `${date.toLocaleDateString()} at ${date.toLocaleTimeString()}`;
+
+            //let postDate = document.createElement("p");
+            //postDate.textContent = `${date.toLocaleDateString()} at ${date.toLocaleTimeString()}`;
 
             let deleteBtn = document.createElement("button");
-            deleteBtn.innerText = "Delete";
+            deleteBtn.classList.add("deleteButton");
+            deleteBtn.innerText = "\u{292B}";
             deleteBtn.addEventListener("click", async () => {
                 await this.#controller.deletePost(p.id);
             });
 
+            postDiv.append(postUser);
             postDiv.append(postTitle);
             postDiv.append(postContent);
-            postDiv.append(postUser);
-            postDiv.append(postDate);
+            //postDiv.append(postDate);
             if (user.username === this.#user.username || this.#user.isAdmin) {
                 postDiv.append(deleteBtn);
             }

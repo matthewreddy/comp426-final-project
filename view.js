@@ -35,6 +35,14 @@ export class View {
             await this.#controller.logout();
         });
 
+        let currentUserMessage = document.createElement("div");
+        let message = document.createElement("p");
+        currentUserMessage.id = "currentUserMessage";
+        message.append("Currently logged in")
+        message.append(document.createElement("br"))
+        message.append('as ' + this.#user.username)
+        currentUserMessage.append(message);
+
         let createPostDiv = document.createElement("div");
         createPostDiv.classList.add("newPost");
         createPostDiv.hidden = true;
@@ -73,10 +81,11 @@ export class View {
         createPostDiv.append(finalCreateBtn);
         createPostDiv.append(cancelBtn);
 
+        header.append(logoutBtn);
+        header.append(currentUserMessage);
         parent.append(header);
         parent.append(loginResult);
         parent.append(createBtn);
-        parent.append(logoutBtn);
         parent.append(createPostDiv);
         
         let posts = await this.#controller.getAllPosts();
@@ -102,7 +111,8 @@ export class View {
             //postDate.textContent = `${date.toLocaleDateString()} at ${date.toLocaleTimeString()}`;
 
             let editBtn = document.createElement("button");
-            editBtn.innerText = "Edit";
+            editBtn.classList.add("editButton");
+            editBtn.innerText = "\u{270E}";
             editBtn.addEventListener("click", async () => {
                 currentPostID = p.id;
                 editTitle.value = p.title;

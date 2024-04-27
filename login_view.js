@@ -9,7 +9,7 @@ export class LoginView {
 
     render(parent) {
         let header = document.createElement("h1");
-        header.textContent = "ThisProjectIsADub.com";
+        header.textContent = "ExpressYourself";
         header.classList.add("header");
 
         let usernamePasswordPrompt = document.createElement("p");

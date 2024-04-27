@@ -33,6 +33,10 @@ export class Controller {
         return await this.#model.deletePost(id);
     }
 
+    async generatePost(keywords) {
+        return await this.#model.generatePost(keywords);
+    }
+
     createPostRequest() {
         return this.#model.createPostRequest();
     }

@@ -1,6 +1,3 @@
-import {Model} from "./model.js";
-import {Controller} from "./controller.js";
-
 export class View {
     #model;
     #controller;
@@ -14,7 +11,7 @@ export class View {
 
     async render(parent) {
         let header = document.createElement("h1");
-        header.textContent = "ThisProjectIsADub.com";
+        header.textContent = "ExpressYourself";
         header.classList.add("header");
 
         let loginResult = document.createElement("p");
@@ -81,12 +78,62 @@ export class View {
         createPostDiv.append(finalCreateBtn);
         createPostDiv.append(cancelBtn);
 
+        let generatePostDiv = document.createElement("div");
+        generatePostDiv.classList.add("newPost");
+        generatePostDiv.hidden = true;
+
+        let openGeneratePostBtn = document.createElement("button");
+        openGeneratePostBtn.innerText = "Generate Post";
+        openGeneratePostBtn.addEventListener("click", () => {
+            generatePostDiv.hidden = false;
+        });
+
+        let generateTitleInput = document.createElement("input");
+        generateTitleInput.placeholder = "Title your amazing post";
+
+        let postKeywordsInput = document.createElement("input");
+        postKeywordsInput.placeholder = "Enter some keywords separated by commas";
+
+        let generatePostResult = document.createElement("p");
+        generatePostResult.textContent = "";
+        
+        let generatePostBtn = document.createElement("button");
+        generatePostBtn.innerText = "Generate";
+        generatePostBtn.addEventListener("click", async () => {
+            await this.#controller.generatePost(postKeywordsInput.value);
+        });
+
+        let postGeneratedPostBtn = document.createElement("button");
+        postGeneratedPostBtn.innerText = "\u{2713}";
+        postGeneratedPostBtn.style.left = "10px";
+        postGeneratedPostBtn.addEventListener("click", async () => {
+            await this.#controller.createPost(generateTitleInput.value, generatePostResult.innerText, this.#user.id);
+        });
+
+        let cancelGenerateBtn = document.createElement("button");
+        cancelGenerateBtn.innerText = "\u{292B}";
+        cancelGenerateBtn.style.right = "10px";
+        cancelGenerateBtn.addEventListener("click", () => {
+            generatePostDiv.hidden = true;
+        });
+
+        generatePostDiv.append(generateTitleInput);
+        generatePostDiv.append(postKeywordsInput);
+        generatePostDiv.append(document.createElement("br"));
+        generatePostDiv.append(generatePostBtn);
+        generatePostDiv.append(generatePostResult);
+        generatePostDiv.append(postGeneratedPostBtn);
+        generatePostDiv.append(cancelGenerateBtn);
+
         header.append(logoutBtn);
         header.append(currentUserMessage);
+
         parent.append(header);
         parent.append(loginResult);
         parent.append(createBtn);
+        parent.append(openGeneratePostBtn);
         parent.append(createPostDiv);
+        parent.append(generatePostDiv);
         
         let posts = await this.#controller.getAllPosts();
         let currentPostID;
@@ -234,6 +281,11 @@ export class View {
 
         this.#model.addEventListener("refresh", () => {
             window.location.href = "index.html";
+        });
+
+        this.#model.addEventListener("generatepost", e => {
+            console.log(e.detail);
+            generatePostResult.textContent = e.detail;
         });
 
         this.#model.addEventListener("logout", () => {

@@ -1,3 +1,6 @@
+import {apiKey} from "./api_key.js";
+const url = "https://api.textcortex.com/v1/texts/social-media-posts";
+
 export class Model extends EventTarget {
 
     constructor() {
@@ -76,6 +79,26 @@ export class Model extends EventTarget {
     async deletePost(id) {
         await fetch("http://localhost:3000/posts/" + id, {method: "DELETE"});
         this.dispatchEvent(new Event("refresh"));
+    }
+
+    async generatePost(keywords) {
+        const options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: 'Bearer ' + apiKey
+            },
+            body: `{
+                "context":"story",
+                "keywords":[${keywords.split(",").map(w => `"${w}"`)}],
+                "mode":"twitter"
+            }`
+        };
+
+        let response = await fetch(url, options);
+        let story_data = await response.json();
+
+        this.dispatchEvent(new CustomEvent("generatepost", {detail: story_data.data.outputs[0].text}));
     }
 
     createPostRequest() {

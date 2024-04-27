@@ -140,10 +140,13 @@ export class View {
 
             parent.append(postDiv);
         }
+        let overlay = document.createElement("div")
+        overlay.id = "overlay"
+        parent.append(overlay);
 
         let editPostDiv = document.createElement("div");
         editPostDiv.classList.add("editPost");
-        editPostDiv.hidden = true;
+        //editPostDiv.hidden = true;
 
         let editTitle = document.createElement("input");
 
@@ -160,7 +163,8 @@ export class View {
         cancelEditBtn.innerText = "\u{292B}";
         cancelEditBtn.style.right = "10px"
         cancelEditBtn.addEventListener("click", () => {
-            editPostDiv.hidden = true;
+            editPostDiv.style.display = "none";
+            overlay.style.display = "none";
         });
 
         editPostDiv.append(editTitle);
@@ -224,7 +228,8 @@ export class View {
         });
 
         this.#model.addEventListener("editpost", () => {
-            editPostDiv.hidden = false;
+            editPostDiv.style.display = "block";
+            overlay.style.display = "block";
         });
 
         this.#model.addEventListener("refresh", () => {

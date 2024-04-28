@@ -168,6 +168,7 @@ export class View {
                 editTitle.value = p.title;
                 editContent.value = p.content;
                 editPostDiv.style.display = "block";
+                overlay.style.display = "block";
             });
 
             let deleteBtn = document.createElement("button");
@@ -179,14 +180,22 @@ export class View {
 
             let likeCount = document.createElement("p");
             likeCount.innerText = await this.#controller.getNumLikes(p.id);
+            likeCount.classList.add("likeCount")
 
-            let likeBtn = document.createElement("button");
-            likeBtn.innerText = "Like";
+            let likeBtn = document.createElement("p");
+            likeBtn.classList.add("likeButton");
+            if(await this.#controller.hasUserNotLikedPost(p.id, this.#user.id)) {
+                likeBtn.innerText = "🤍";
+            }
+            else {
+                likeBtn.innerText = "❤️";
+            }
             likeBtn.addEventListener("click", async () => {
                 let userHasNotLiked = await this.#controller.hasUserNotLikedPost(p.id, this.#user.id);
                 if (userHasNotLiked) {
                     await this.#controller.like(p.id, this.#user.id);
                     likeCount.innerText = await this.#controller.getNumLikes(p.id);
+                    likeBtn.innerText = "❤️";
                 }
             });
 
@@ -208,10 +217,21 @@ export class View {
         }
         let overlay = document.createElement("div")
         overlay.id = "overlay"
+        overlay.style.display = "none";
+
+        overlay.addEventListener("click", () => {
+            editPostDiv.style.display = "none";
+            overlay.style.display = "none";
+        });
+
         parent.append(overlay);
 
         let editPostDiv = document.createElement("div");
         editPostDiv.classList.add("editPost");
+
+        let editPostHeader = document.createElement("h1")
+        editPostHeader.append("Edit Post");
+        editPostDiv.append(editPostHeader);
 
         let editTitle = document.createElement("input");
 
@@ -227,8 +247,10 @@ export class View {
         let cancelEditBtn = document.createElement("button");
         cancelEditBtn.innerText = "\u{292B}";
         cancelEditBtn.style.right = "10px"
+
         cancelEditBtn.addEventListener("click", () => {
             editPostDiv.style.display = "none";
+            overlay.style.display = "none";
         });
 
         editPostDiv.append(editTitle);

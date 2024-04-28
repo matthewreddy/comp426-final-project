@@ -139,7 +139,7 @@ export class View {
         parent.append(loginResult);
         parent.append(createBtn);
         parent.append(openGeneratePostBtn);
-        
+
         let adminSearch = await this.#controller.getUserByID(this.#user.id);
         if (adminSearch.isAdmin) parent.append(adminSettings);
         parent.append(createPostDiv);
@@ -259,8 +259,8 @@ export class View {
 
                 let weather = document.createElement("p");
 
-                weatherGreeting.append("Right now in Chapel Hill")
-                sideContent.append(weatherGreeting);
+                weather.append("Right now in Chapel Hill")
+                sideContent.append(weather);
 
                 parent.append(sideContent);
 

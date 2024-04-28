@@ -16,7 +16,7 @@ export class AdminView {
 
         let backBtn = document.createElement("button");
         backBtn.id = "backButton";
-        backBtn.innerText = "Back";
+        backBtn.innerText = "↩ ";
         backBtn.addEventListener("click", async () => {
             window.location.href = "index.html";
         });
@@ -45,6 +45,7 @@ export class AdminView {
 
                 let promoteBtn = document.createElement("button");
                 promoteBtn.innerText = "Promote";
+                promoteBtn.id = "promoteUserButton"
                 promoteBtn.addEventListener("click", async () => {
                     await this.#controller.editUser(u.id, u.username, u.password, true);
                 });
@@ -57,6 +58,7 @@ export class AdminView {
 
                 let deleteBtn = document.createElement("button");
                 deleteBtn.innerText = "Delete";
+                deleteBtn.id = "deleteUserButton"
                 deleteBtn.addEventListener("click", async () => {
                     await this.#controller.deleteUser(u.id);
                 });
@@ -71,9 +73,9 @@ export class AdminView {
                     }
                     userDiv.append(deleteBtn);
                 }
-                
+                userDiv.classList.add("user");
                 userDiv.classList.add("post");
-
+                
                 parent.append(userDiv);
             }
 

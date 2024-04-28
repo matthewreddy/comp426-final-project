@@ -255,12 +255,32 @@ export class View {
                 weatherGreeting.append("Right now in Chapel Hill")
                 sideContent.append(weatherGreeting);
 
-                let heute = forecastHeute.properties.periods[0];
 
-                let weather = document.createElement("p");
 
-                weather.append("Right now in Chapel Hill")
-                sideContent.append(weather);
+                for(let i=0; i<7; i++) {
+                    let weather = document.createElement("p");
+                    let heute = forecastHeute.properties.periods[i];
+                    weather.append(heute.name + ": " + heute.shortForecast + ", " + heute.temperature + "°");
+                    sideContent.append(weather);
+
+                    let image = document.createElement("img");
+                    image.src = heute.icon;
+                    image.classList.add("weatherIcon");
+                    sideContent.append(image);
+
+                    // let iconURL = heute.icon;
+                    // fetch(iconURL)
+                    //     .then(response => {
+                    //         if (!response.ok) {
+                    //         throw new Error('Could not get weather data');
+                    //         }
+                    //         return response.json();
+                    //     })
+                    //     .then(data => {
+
+                    //     });
+
+                }
 
                 parent.append(sideContent);
 

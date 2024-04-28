@@ -197,11 +197,11 @@ div.post {
 
 #sideContent {
     width: 200px;
-    height: 1000px;
+    height: 1300px;
     border: solid var(--borderColor) 1px;
     position: absolute;
     left: 72%;
-    top: 273px;
+    top: 263px;
     margin-left: 5px;
     background: var(--backgroundColor);
     text-align: center;
@@ -276,4 +276,8 @@ div.post {
 
 #deleteUserButton {
     left: 110px;
+}
+
+.weatherIcon {
+    border: 2px solid var(--borderColor);
 }

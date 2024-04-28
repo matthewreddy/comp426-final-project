@@ -139,11 +139,7 @@ export class View {
         parent.append(loginResult);
         parent.append(createBtn);
         parent.append(openGeneratePostBtn);
-<<<<<<< Updated upstream
-
-=======
-        parent.append(adminSettings);
->>>>>>> Stashed changes
+        
         let adminSearch = await this.#controller.getUserByID(this.#user.id);
         if (adminSearch.isAdmin) parent.append(adminSettings);
         parent.append(createPostDiv);

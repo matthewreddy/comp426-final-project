@@ -158,4 +158,30 @@ export class Model extends EventTarget {
         }
     }
 
+    async like(post_id, user_id) {
+        let likeStr = JSON.stringify({
+            post_id: post_id,
+            user_id: user_id
+        });
+        let post = await fetch("http://localhost:3000/likes", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: likeStr
+        });
+        await post.json();
+        this.dispatchEvent(new Event("refresh"));
+    }
+
+    async getNumLikes(id) {
+        let numLikes = await fetch("http://localhost:3000/likes/" + id);
+        return await numLikes.json();
+    }
+
+    async hasUserNotLikedPost(post_id, user_id) {
+        let result = await fetch(`http://localhost:3000/likes/${post_id}/${user_id}`);
+        return await result.json();
+    }
+
 }

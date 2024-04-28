@@ -111,6 +111,48 @@ export class Post {
         return false;
     }
 
+    async getNumLikes() {
+        /* 
+        Get number of likes on a specific post
+        On success, returns integer number of likes. Otherwise, returns 0
+        */
+        try {
+            let allLikes = await db.all("SELECT * FROM Like WHERE post_id = ?", this.#id);
+            return allLikes.length;
+        } catch (e) {
+            console.error(e);
+        }
+        return 0;
+    }
+
+    async hasUserNotLiked(user_id) {
+        /*
+        See if a user has not yet liked a specific post
+        If user has not liked the post, return true. If so, or if error occurs, return false
+        */
+        try {
+            let like = await db.get("SELECT * FROM Like WHERE post_id = ? AND user_id = ?", this.#id, user_id);
+            return !like;
+        } catch (e) {
+            console.error(e);
+        }
+        return false;
+    }
+
+    async like(data) {
+        /*
+        Insert like for a specific post into the database
+        On success, returns true. Otherwise, returns false
+        */
+        try {
+            await db.run("INSERT INTO Like VALUES (?, ?)", this.#id, data.user_id);
+            return true;
+        } catch (e) {
+            console.error(e);
+        }
+        return false;
+    }
+
     json() {
         /* Returns JSON representation of the post */
         return {

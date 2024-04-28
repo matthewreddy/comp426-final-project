@@ -16,4 +16,7 @@ await db.run("INSERT INTO Post VALUES (?, ?, ?, ?, ?)", 2, "Average Joe makes a 
              "I was walking down the street the other day when I thought to myself: 'I should make a post!' Then I realized how average I am!",
              Date.now(), 2);
 
+await db.run("CREATE TABLE Like (post_id INTEGER NOT NULL, user_id INTEGER NOT NULL, " +
+             "FOREIGN KEY (post_id) REFERENCES User(id), FOREIGN KEY (user_id) REFERENCES Post(id))");
+
 db.close();

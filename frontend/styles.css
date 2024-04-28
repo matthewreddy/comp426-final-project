@@ -167,8 +167,11 @@ div.post {
     padding: 10px 0px 10px 0px;
     margin: 0px;
 }
-.post p,h4 {
+.post p {
     font-weight: normal;
+    padding-left: 15px;
+}
+.post h4 {
     padding-left: 15px;
 }
 .deleteButton {

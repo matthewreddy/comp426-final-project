@@ -177,6 +177,18 @@ export class View {
                 await this.#controller.deletePost(p.id);
             });
 
+            let likeBtn = document.createElement("button");
+            likeBtn.innerText = "Like";
+            likeBtn.addEventListener("click", async () => {
+                let userHasNotLiked = await this.#controller.hasUserNotLikedPost(p.id, this.#user.id);
+                if (userHasNotLiked) {
+                    await this.#controller.like(p.id, this.#user.id);
+                }
+            });
+
+            let likeCount = document.createElement("p");
+            likeCount.innerText = await this.#controller.getNumLikes(p.id);
+
             postDiv.append(postUser);
             postDiv.append(postTitle);
             postDiv.append(postContent);
@@ -184,6 +196,8 @@ export class View {
                 postDiv.append(editBtn);
                 postDiv.append(deleteBtn);
             }
+            postDiv.append(likeBtn);
+            postDiv.append(likeCount);
 
             postDiv.classList.add("post");
 

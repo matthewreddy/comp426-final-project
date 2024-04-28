@@ -130,6 +130,42 @@ app.delete("/posts/:id", async (req, res) => {
     res.json(await Post.deleteByID(req.params.id));
 });
 
+// LIKES
+
+app.get("/likes/:id", async (req, res) => {
+    // Get number of likes for specific post
+    let post = await Post.findByID(req.params.id);
+    if (!post) {
+        res.status(404).send(`Post not found with id = ${req.params.id}`);
+        return;
+    }
+    res.json(await post.getNumLikes());
+});
+
+app.get("/likes/:post_id/:user_id", async (req, res) => {
+    // See if user has not yet liked post
+    let post = await Post.findByID(req.params.post_id);
+    if (!post) {
+        res.status(404).send(`Post not found with id = ${req.params.post_id}`);
+    }
+    res.json(await post.hasUserNotLiked(req.params.user_id));
+})
+
+app.post("/likes", async (req, res) => {
+    // Create like for post
+    let post = await Post.findByID(req.body.post_id);
+    if (!post) {
+        res.status(404).send(`Post not found with id = ${req.body.post_id}`);
+        return;
+    }
+    let result = await post.like(req.body);
+    if (!result) {
+        res.status(400).send(`Bad request.`);
+        return;
+    }
+    res.status(201).json(result);
+});
+
 app.listen(port, () => {
     console.log(`App listening on port ${port}...`);
-})
+});

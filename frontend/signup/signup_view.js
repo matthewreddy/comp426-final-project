@@ -32,12 +32,13 @@ export class SignupView {
         submitBtn.addEventListener("click", async () => {
             if (usernameInput.value === "") {
                 resultText.textContent = "You must provide a username.";
-                return;
             } else if (passwordInput.value === "") {
                 resultText.textContent = "You must provide a password.";
-                return;
+            } else if (passwordInput.value.length < 5) {
+                resultText.textContent = "Password should be at least 5 characters.";
+            } else {
+                await this.#controller.createUser(usernameInput.value, passwordInput.value);
             }
-            await this.#controller.createUser(usernameInput.value, passwordInput.value);
         });
 
         let returnLink = document.createElement("a");

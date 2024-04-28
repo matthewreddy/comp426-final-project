@@ -53,4 +53,16 @@ export class Controller {
         return await this.#model.createUser(username, password);
     }
 
+    async like(post_id, user_id) {
+        return await this.#model.like(post_id, user_id);
+    }
+
+    async getNumLikes(id) {
+        return await this.#model.getNumLikes(id);
+    }
+
+    async hasUserNotLikedPost(post_id, user_id) {
+        return await this.#model.hasUserNotLikedPost(post_id, user_id);
+    }
+
 }

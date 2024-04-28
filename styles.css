@@ -89,7 +89,7 @@ div.loginContainer {
     width: 50px;
     height: 50px;
     margin-left: 17%;
-    margin-bottom: 10px;
+    margin-bottom: 0px;
     font-size: 30px;
     border: solid var(--borderColor);
     border-width: 1px;
@@ -143,6 +143,10 @@ div.newPost {
     font-size: 25px;
     background: var(--buttonColor);
     border: solid var(--borderColor) 1px;
+}
+
+.newPost p {
+    padding-left: 15px;
 }
 
 div.post {
@@ -227,4 +231,25 @@ div.post {
     position: absolute;
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 999;
+}
+
+#generatePost {
+    position: absolute;
+    left: 50px;
+}
+
+#generatePostButton {
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    margin-left: 10px;
+    font-size: 30px;
+}
+
+#adminSettingsButton {
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    margin-left: 70px;
+    font-size: 30px;
 }

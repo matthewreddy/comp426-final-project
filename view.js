@@ -40,8 +40,6 @@ export class View {
         message.append('as ' + this.#user.username)
         currentUserMessage.append(message);
 
-        let adminSettings = document.createElement("p");
-        adminSettings.innerHTML = `<a href="admin.html">Admin Settings</a>`;
 
         let createPostDiv = document.createElement("div");
         createPostDiv.classList.add("newPost");
@@ -78,10 +76,23 @@ export class View {
         generatePostDiv.hidden = true;
 
         let openGeneratePostBtn = document.createElement("button");
-        openGeneratePostBtn.innerText = "Generate Post";
+        openGeneratePostBtn.innerText = "🤖";
+        openGeneratePostBtn.id = "generatePostButton"
         openGeneratePostBtn.addEventListener("click", () => {
             generatePostDiv.hidden = false;
         });
+
+        let adminSettings = document.createElement("button");
+        adminSettings.id = "adminSettingsButton";
+        adminSettings.append("\u{1F6E0}")
+        adminSettings.addEventListener("click", function() {
+            // Define the URL you want to navigate to
+            var link = "admin.html";
+            
+            // Navigate to the URL
+            window.location.href = link;
+          });
+
 
         let generateTitleInput = document.createElement("input");
         generateTitleInput.placeholder = "Title your amazing post";
@@ -93,7 +104,8 @@ export class View {
         generatePostResult.textContent = "";
         
         let generatePostBtn = document.createElement("button");
-        generatePostBtn.innerText = "Generate";
+        generatePostBtn.id = "generatePost";
+        generatePostBtn.innerText = "🤖";
         generatePostBtn.addEventListener("click", async () => {
             await this.#controller.generatePost(postKeywordsInput.value);
         });
@@ -127,7 +139,11 @@ export class View {
         parent.append(loginResult);
         parent.append(createBtn);
         parent.append(openGeneratePostBtn);
+<<<<<<< Updated upstream
 
+=======
+        parent.append(adminSettings);
+>>>>>>> Stashed changes
         let adminSearch = await this.#controller.getUserByID(this.#user.id);
         if (adminSearch.isAdmin) parent.append(adminSettings);
         parent.append(createPostDiv);

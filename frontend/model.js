@@ -171,7 +171,6 @@ export class Model extends EventTarget {
             body: likeStr
         });
         await post.json();
-        this.dispatchEvent(new Event("refresh"));
     }
 
     async getNumLikes(id) {

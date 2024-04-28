@@ -21,6 +21,22 @@ export class Controller {
         return await this.#model.getUserByID(id);
     }
 
+    async getAllUsers() {
+        return await this.#model.getAllUsers();
+    }
+
+    async promoteUser(id, username, password, admin) {
+        return await this.#model.promoteUser(id, username, password, admin);
+    }
+
+    async demoteUser(id, username, password, admin) {
+        return await this.#model.demoteUser(id, username, password, admin);
+    }
+
+    async deleteUser(id) {
+        return await this.#model.deleteUser(id);
+    }
+
     editPostRequest() {
         return this.#model.editPostRequest();
     }
@@ -51,5 +67,9 @@ export class Controller {
 
     async logout() {
         return await this.#model.logout();
+    }
+
+    async back() {
+        return await this.#model.back();
     }
 }

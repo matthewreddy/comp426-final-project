@@ -40,6 +40,9 @@ export class View {
         message.append('as ' + this.#user.username)
         currentUserMessage.append(message);
 
+        let adminSettings = document.createElement("p");
+        adminSettings.innerHTML = `<a href="admin.html">Admin Settings</a>`;
+
         let createPostDiv = document.createElement("div");
         createPostDiv.classList.add("newPost");
         createPostDiv.hidden = true;
@@ -132,6 +135,8 @@ export class View {
         parent.append(loginResult);
         parent.append(createBtn);
         parent.append(openGeneratePostBtn);
+        let adminSearch = await this.#controller.getUserByID(this.#user.id);
+        if (adminSearch.isAdmin) parent.append(adminSettings);
         parent.append(createPostDiv);
         parent.append(generatePostDiv);
         

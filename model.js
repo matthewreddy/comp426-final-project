@@ -55,6 +55,57 @@ export class Model extends EventTarget {
         return null;
     }
 
+    async getAllUsers(){
+        try{
+            let allUsers = await fetch("http://localhost:3000/users/");
+            return await allUsers.json();
+        } catch (e) {
+            console.error(e);
+        }
+        return [];
+    }
+
+    async promoteUser(id, username, password, admin){
+        let userStr = JSON.stringify({
+            id: id,
+            username: username,
+            password: password,
+            isAdmin: admin
+        });
+        let user = await fetch("http://localhost:3000/users/" + id, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: userStr
+        });
+        await user.json();
+        this.dispatchEvent(new Event("refresh"));
+    }
+
+    async demoteUser(id, username, password, admin){
+        let userStr = JSON.stringify({
+            id: id,
+            username: username,
+            password: password,
+            isAdmin: admin
+        });
+        let user = await fetch("http://localhost:3000/users/" + id, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: userStr
+        });
+        await user.json();
+        this.dispatchEvent(new Event("refresh"));
+    }
+
+    async deleteUser(id){
+        await fetch("http://localhost:3000/users/" + id, {method: "DELETE"});
+        this.dispatchEvent(new Event("refresh"));
+    }
+
     editPostRequest(){
         this.dispatchEvent(new Event("editpost"));
     }
@@ -145,5 +196,9 @@ export class Model extends EventTarget {
 
     async logout() {
         this.dispatchEvent(new CustomEvent("logout"));
+    }
+
+    async back() {
+        this.dispatchEvent(new CustomEvent("back"));
     }
 }

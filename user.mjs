@@ -102,11 +102,12 @@ export class User {
         try {
             let newUsername = data.username !== undefined ? data.username : this.#username;
             let newPassword = data.password !== undefined ? data.password : this.#password;
-            await db.run("UPDATE User SET username = ?, password = ? WHERE id = ?", newUsername, newPassword, this.#id);
+            let newAdmin = data.isAdmin !== undefined ? data.isAdmin : this.#isAdmin;
+            await db.run("UPDATE User SET username = ?, password = ?, isAdmin = ? WHERE id = ?", newUsername, newPassword, newAdmin, this.#id);
             this.#username = newUsername;
             this.#password = newPassword;
-            let user = new User(this.#id, this.#username, this.#password);
-            if (this.#isAdmin) user.#makeAdmin();
+            this.#isAdmin = newAdmin;
+            let user = new User(this.#id, this.#username, this.#password, this.#isAdmin);
             return user;
         } catch (e) {
             console.error(e);
@@ -141,5 +142,4 @@ export class User {
     #makeAdmin() {
         this.#isAdmin = true;
     }
-
 }

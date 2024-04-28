@@ -184,6 +184,7 @@ div.post {
     position: absolute;
     right: 45px;
     bottom: 0px;
+    cursor: pointer;
 }
 
 .likeCount {

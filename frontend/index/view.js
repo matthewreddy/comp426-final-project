@@ -287,7 +287,7 @@ export class View {
                 let forecastHeute = data;
                 let weatherGreeting = document.createElement("p");
 
-                weatherGreeting.append("Right now in Chapel Hill")
+                weatherGreeting.append("Nothing to talk about? Here's the Chapel Hill weather!")
                 sideContent.append(weatherGreeting);
 
 

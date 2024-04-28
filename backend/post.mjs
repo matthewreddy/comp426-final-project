@@ -104,6 +104,7 @@ export class Post {
         */
         try {
             await db.run("DELETE FROM Post WHERE id = ?", id);
+            await db.run("DELETE FROM Like WHERE post_id = ?", id);
             return true;
         } catch (e) {
             console.error(e);

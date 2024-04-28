@@ -124,6 +124,7 @@ export class User {
         try {
             await db.run("DELETE FROM User WHERE id = ?", id);
             await db.run("DELETE FROM Post WHERE user_id = ?", id);  // delete all the user's posts
+            await db.run("DELETE FROM Like WHERE user_id = ?" , id);  // delete all the user's likes
             return true;
         } catch (e) {
             console.error(e);

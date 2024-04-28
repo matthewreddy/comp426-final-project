@@ -8,7 +8,6 @@ export class Model extends EventTarget {
     }
 
     async doesUserExist(username) {
-        // see if user exists
         try {
             let user = await fetch("http://localhost:3000/users/" + username);
             await user.json();
@@ -20,16 +19,12 @@ export class Model extends EventTarget {
     }
 
     async validate(username, password) {
-        // validate user password
         let validated = await fetch(`http://localhost:3000/users/${username}/${password}`);
         let validatedJson = await validated.json();
         if (validatedJson) {
             let user = await fetch("http://localhost:3000/users/" + username);
             let userJson = await user.json();
             this.dispatchEvent(new CustomEvent("login", {detail: userJson}));
-            if (userJson.isAdmin) {
-                this.dispatchEvent(new CustomEvent("adminlogin", {detail: userJson}));
-            }
             return true;
         }
         return false;
@@ -56,34 +51,11 @@ export class Model extends EventTarget {
     }
 
     async getAllUsers(){
-        try{
-            let allUsers = await fetch("http://localhost:3000/users/");
-            return await allUsers.json();
-        } catch (e) {
-            console.error(e);
-        }
-        return [];
+        let allUsers = await fetch("http://localhost:3000/users/");
+        return await allUsers.json();
     }
 
-    async promoteUser(id, username, password, admin){
-        let userStr = JSON.stringify({
-            id: id,
-            username: username,
-            password: password,
-            isAdmin: admin
-        });
-        let user = await fetch("http://localhost:3000/users/" + id, {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: userStr
-        });
-        await user.json();
-        this.dispatchEvent(new Event("refresh"));
-    }
-
-    async demoteUser(id, username, password, admin){
+    async editUser(id, username, password, admin){
         let userStr = JSON.stringify({
             id: id,
             username: username,
@@ -104,10 +76,6 @@ export class Model extends EventTarget {
     async deleteUser(id){
         await fetch("http://localhost:3000/users/" + id, {method: "DELETE"});
         this.dispatchEvent(new Event("refresh"));
-    }
-
-    editPostRequest(){
-        this.dispatchEvent(new Event("editpost"));
     }
 
     async editPost(title, content, userID, postID) {
@@ -152,10 +120,6 @@ export class Model extends EventTarget {
         this.dispatchEvent(new CustomEvent("generatepost", {detail: story_data.data.outputs[0].text}));
     }
 
-    createPostRequest() {
-        this.dispatchEvent(new Event("createpost"));
-    }
-
     async createPost(title, content, userID) {
         let postStr = JSON.stringify({
             title: title,
@@ -194,11 +158,4 @@ export class Model extends EventTarget {
         }
     }
 
-    async logout() {
-        this.dispatchEvent(new CustomEvent("logout"));
-    }
-
-    async back() {
-        this.dispatchEvent(new CustomEvent("back"));
-    }
 }

@@ -11,14 +11,14 @@ export class AdminView {
 
     render(parent){
         let header = document.createElement("h1");
-        header.textContent = "ThisProjectIsADub.com";
+        header.textContent = "ExpressYourself";
         header.classList.add("header");
 
         let backBtn = document.createElement("button");
         backBtn.id = "backButton";
         backBtn.innerText = "Back";
         backBtn.addEventListener("click", async () => {
-            await this.#controller.back();
+            window.location.href = "index.html";
         });
 
         parent.append(header);
@@ -46,13 +46,13 @@ export class AdminView {
                 let promoteBtn = document.createElement("button");
                 promoteBtn.innerText = "Promote";
                 promoteBtn.addEventListener("click", async () => {
-                    this.#controller.promoteUser(u.id, u.username, u.password, 1);
+                    await this.#controller.editUser(u.id, u.username, u.password, true);
                 });
 
                 let demoteBtn = document.createElement("button");
                 demoteBtn.innerText = "Demote";
                 demoteBtn.addEventListener("click", async () => {
-                    this.#controller.demoteUser(u.id, u.username, u.password, 0);
+                    await this.#controller.editUser(u.id, u.username, u.password, false);
                 });
 
                 let deleteBtn = document.createElement("button");
@@ -88,9 +88,6 @@ export class AdminView {
         this.#model.addEventListener("refresh", () => {
             window.location.href = "admin.html";
         });
-
-        this.#model.addEventListener("back", () => {
-            window.location.href = "index.html";
-        });
+        
     }
 }

@@ -10,15 +10,15 @@ const port = 3000;
 app.use(cors());
 app.use(bodyParser.json());
 
-// I'm not doing any validation right now. Can handle that later.
-
 // USERS
 
 app.get("/users", async (req, res) => {
+    // Get all users
     res.json(await User.getAll());
 });
 
 app.get("/users/:identifier", async (req, res) => {
+    // Get a user by their identifier
     // Identifier can be either the user's ID or username
     if (isNaN(+req.params.identifier)) {
         let user = await User.findByUsername(req.params.identifier);
@@ -38,10 +38,12 @@ app.get("/users/:identifier", async (req, res) => {
 });
 
 app.get("/users/:username/:password", async (req, res) => {
+    // Validate given password for a user
     res.json(await User.validate(req.params.username, req.params.password));
 });
 
 app.post("/users", async (req, res) => {
+    // Create new user
     let user = await User.create(req.body);
     if (!user) {
         res.status(400).send("Bad request.");
@@ -51,6 +53,7 @@ app.post("/users", async (req, res) => {
 });
 
 app.put("/users/:id", async (req, res) => {
+    // Update user
     let user = await User.findByID(req.params.id);
     if (!user) {
         res.status(404).send(`User not found with id = ${req.params.id}.`);
@@ -61,6 +64,7 @@ app.put("/users/:id", async (req, res) => {
 });
 
 app.delete("/users/:id", async (req, res) => {
+    // Delete user
     let user = await User.findByID(req.params.id);
     if (!user) {
         res.status(404).send(`User not found with id = ${req.params.id}.`);
@@ -72,6 +76,7 @@ app.delete("/users/:id", async (req, res) => {
 // POSTS
 
 app.get("/posts", async (req, res) => {
+    // Get all posts
     if (req.query.user_id !== undefined) {  // /posts?user_id={some user ID}
         let user = await User.findByID(req.query.user_id);
         if (!user) {
@@ -85,6 +90,7 @@ app.get("/posts", async (req, res) => {
 });
 
 app.get("/posts/:id", async (req, res) => {
+    // Get post by its ID
     let post = await Post.findByID(req.params.id);
     if (!post) {
         res.status(404).send(`Post not found with id = ${req.params.id}.`);
@@ -94,6 +100,7 @@ app.get("/posts/:id", async (req, res) => {
 });
 
 app.post("/posts", async (req, res) => {
+    // Create new post
     let post = await Post.create(req.body);
     if (!post) {
         res.status(400).send("Bad request.");
@@ -103,6 +110,7 @@ app.post("/posts", async (req, res) => {
 });
 
 app.put("/posts/:id", async (req, res) => {
+    // Update post
     let post = await Post.findByID(req.params.id);
     if (!post) {
         res.status(404).send(`Post not found with id = ${req.params.id}.`);
@@ -113,6 +121,7 @@ app.put("/posts/:id", async (req, res) => {
 });
 
 app.delete("/posts/:id", async (req, res) => {
+    // Delete post
     let post = await Post.findByID(req.params.id);
     if (!post) {
         res.status(404).send(`Post not found with id = ${req.params.id}.`);

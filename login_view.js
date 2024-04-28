@@ -19,13 +19,9 @@ export class LoginView {
         username.type = "text";
         username.placeholder = "Username";
 
-        let br1 = document.createElement("br");
-
         let password = document.createElement("input");
         password.type = "password";
         password.placeholder = "Password";
-
-        let br2 = document.createElement("br");
 
         let loginResult = document.createElement("p");
 
@@ -45,24 +41,22 @@ export class LoginView {
             }
         });
 
-        let loginContainer = document.createElement("div")
-        loginContainer.classList.add("loginContainer")
-        parent.append(header);
-        loginContainer.append(usernamePasswordPrompt);
-        loginContainer.append(username);
-        loginContainer.append(br1);
-        loginContainer.append(password);
-        loginContainer.append(br2);
-        loginContainer.append(loginBtn);
-        loginContainer.append(loginResult);
-
         let createUser = document.createElement("p");
         createUser.innerHTML = `Don't have an account yet? <br> <a href="signup.html">Click here to sign up!</a>`;
 
+        let loginContainer = document.createElement("div")
+        loginContainer.classList.add("loginContainer")
+        loginContainer.append(usernamePasswordPrompt);
+        loginContainer.append(username);
+        loginContainer.append(document.createElement("br"));
+        loginContainer.append(password);
+        loginContainer.append(document.createElement("br"));
+        loginContainer.append(loginBtn);
+        loginContainer.append(loginResult);
         loginContainer.append(createUser);
 
+        parent.append(header);
         parent.append(loginContainer)
-
 
         this.#model.addEventListener("login", e => {
             sessionStorage.setItem("user", JSON.stringify(e.detail));

@@ -22,14 +22,14 @@ export class View {
         createBtn.id = "createButton";
         createBtn.innerText = "+";
         createBtn.addEventListener("click", () => {
-            this.#controller.createPostRequest();
+            createPostDiv.hidden = false;
         });
 
         let logoutBtn = document.createElement("button");
         logoutBtn.id = "logoutButton";
         logoutBtn.innerText = "Logout";
         logoutBtn.addEventListener("click", async () => {
-            await this.#controller.logout();
+            window.location.href = "login.html";
         });
 
         let currentUserMessage = document.createElement("div");
@@ -47,16 +47,10 @@ export class View {
         createPostDiv.classList.add("newPost");
         createPostDiv.hidden = true;
 
-        //let titleLabel = document.createElement("p");
         let titleInput = document.createElement("input");
-
-        //titleLabel.textContent = "Title: ";
         titleInput.placeholder = "Title your amazing post";
 
-        //let contentLabel = document.createElement("p");
         let contentInput = document.createElement("textarea");
-
-        //contentLabel.textContent = "Content: ";
         contentInput.placeholder = "The main content of your post goes here!";
 
         let finalCreateBtn = document.createElement("button");
@@ -73,9 +67,7 @@ export class View {
             createPostDiv.hidden = true;
         });
 
-        //createPostDiv.append(titleLabel);
         createPostDiv.append(titleInput);
-        //createPostDiv.append(contentLabel);
         createPostDiv.append(contentInput);
         createPostDiv.append(document.createElement("br"));
         createPostDiv.append(finalCreateBtn);
@@ -135,6 +127,7 @@ export class View {
         parent.append(loginResult);
         parent.append(createBtn);
         parent.append(openGeneratePostBtn);
+
         let adminSearch = await this.#controller.getUserByID(this.#user.id);
         if (adminSearch.isAdmin) parent.append(adminSettings);
         parent.append(createPostDiv);
@@ -159,9 +152,6 @@ export class View {
                 " : " + 
                 `${date.toLocaleDateString()} at ${date.toLocaleTimeString()}`;
 
-            //let postDate = document.createElement("p");
-            //postDate.textContent = `${date.toLocaleDateString()} at ${date.toLocaleTimeString()}`;
-
             let editBtn = document.createElement("button");
             editBtn.classList.add("editButton");
             editBtn.innerText = "\u{270E}";
@@ -169,7 +159,7 @@ export class View {
                 currentPostID = p.id;
                 editTitle.value = p.title;
                 editContent.value = p.content;
-                this.#controller.editPostRequest();
+                editPostDiv.style.display = "block";
             });
 
             let deleteBtn = document.createElement("button");
@@ -182,7 +172,6 @@ export class View {
             postDiv.append(postUser);
             postDiv.append(postTitle);
             postDiv.append(postContent);
-            //postDiv.append(postDate);
             if (user.username === this.#user.username || this.#user.isAdmin) {
                 postDiv.append(editBtn);
                 postDiv.append(deleteBtn);
@@ -198,7 +187,6 @@ export class View {
 
         let editPostDiv = document.createElement("div");
         editPostDiv.classList.add("editPost");
-        //editPostDiv.hidden = true;
 
         let editTitle = document.createElement("input");
 
@@ -216,7 +204,6 @@ export class View {
         cancelEditBtn.style.right = "10px"
         cancelEditBtn.addEventListener("click", () => {
             editPostDiv.style.display = "none";
-            //overlay.style.display = "none";
         });
 
         editPostDiv.append(editTitle);
@@ -272,16 +259,6 @@ export class View {
             })
             .catch(error => {
                 console.error('Error:', error);
-            });
-
-        
-        this.#model.addEventListener("createpost", () => {
-            createPostDiv.hidden = false;
-        });
-
-        this.#model.addEventListener("editpost", () => {
-            editPostDiv.style.display = "block";
-           // overlay.style.display = "block";
         });
 
         this.#model.addEventListener("refresh", () => {
@@ -289,12 +266,7 @@ export class View {
         });
 
         this.#model.addEventListener("generatepost", e => {
-            console.log(e.detail);
             generatePostResult.textContent = e.detail;
-        });
-
-        this.#model.addEventListener("logout", () => {
-            window.location.href = "login.html";
         });
 
     }

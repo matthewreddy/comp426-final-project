@@ -10,7 +10,7 @@ export class User {
         this.#id = id;
         this.#username = username;
         this.#password = password;
-        this.#isAdmin = false;  // initially should not make all users admin
+        this.#isAdmin = false;  // initially should make all users not have administrative permissions
     }
 
     static async create(data) {
@@ -107,7 +107,8 @@ export class User {
             this.#username = newUsername;
             this.#password = newPassword;
             this.#isAdmin = newAdmin;
-            let user = new User(this.#id, this.#username, this.#password, this.#isAdmin);
+            let user = new User(this.#id, this.#username, this.#password);
+            if (this.#isAdmin) user.#makeAdmin();
             return user;
         } catch (e) {
             console.error(e);
@@ -122,6 +123,7 @@ export class User {
         */
         try {
             await db.run("DELETE FROM User WHERE id = ?", id);
+            await db.run("DELETE FROM Post WHERE user_id = ?", id);  // delete all the user's posts
             return true;
         } catch (e) {
             console.error(e);

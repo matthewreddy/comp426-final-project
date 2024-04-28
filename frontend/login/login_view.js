@@ -42,7 +42,7 @@ export class LoginView {
         });
 
         let createUser = document.createElement("p");
-        createUser.innerHTML = `Don't have an account yet? <br> <a href="signup.html">Click here to sign up!</a>`;
+        createUser.innerHTML = `Don't have an account yet? <br> <a href="../signup/signup.html">Click here to sign up!</a>`;
 
         let loginContainer = document.createElement("div")
         loginContainer.classList.add("loginContainer")
@@ -60,7 +60,7 @@ export class LoginView {
 
         this.#model.addEventListener("login", e => {
             sessionStorage.setItem("user", JSON.stringify(e.detail));
-            window.location.href = "index.html";
+            window.location.href = "../index/index.html";
         });
 
     }

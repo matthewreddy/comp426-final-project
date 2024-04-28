@@ -42,7 +42,7 @@ export class SignupView {
 
         let returnLink = document.createElement("a");
         returnLink.textContent = "Return to login";
-        returnLink.href = "login.html";
+        returnLink.href = "../login/login.html";
 
         let signUpContainer = document.createElement("div");
         signUpContainer.classList.add("loginContainer")

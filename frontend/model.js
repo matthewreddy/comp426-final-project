@@ -1,4 +1,4 @@
-import {apiKey} from "./api_key.js";
+import {apiKey} from "../api_key.js";
 const url = "https://api.textcortex.com/v1/texts/social-media-posts";
 
 export class Model extends EventTarget {

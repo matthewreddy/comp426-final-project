@@ -4,6 +4,6 @@
         "**/*.scss",
         "**/*.sass",
         "**/*.ts",
-        "db.sqlite*"
+        "**/*db.sqlite*"
     ]
 }

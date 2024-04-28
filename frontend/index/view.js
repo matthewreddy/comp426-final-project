@@ -29,7 +29,7 @@ export class View {
         logoutBtn.id = "logoutButton";
         logoutBtn.innerText = "Logout";
         logoutBtn.addEventListener("click", async () => {
-            window.location.href = "login.html";
+            window.location.href = "../login/login.html";
         });
 
         let currentUserMessage = document.createElement("div");
@@ -85,13 +85,9 @@ export class View {
         let adminSettings = document.createElement("button");
         adminSettings.id = "adminSettingsButton";
         adminSettings.append("\u{1F6E0}")
-        adminSettings.addEventListener("click", function() {
-            // Define the URL you want to navigate to
-            var link = "admin.html";
-            
-            // Navigate to the URL
-            window.location.href = link;
-          });
+        adminSettings.addEventListener("click", () => {
+            window.location.href = "../admin/admin.html";
+        })
 
 
         let generateTitleInput = document.createElement("input");

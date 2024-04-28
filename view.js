@@ -216,7 +216,7 @@ export class View {
         cancelEditBtn.style.right = "10px"
         cancelEditBtn.addEventListener("click", () => {
             editPostDiv.style.display = "none";
-            overlay.style.display = "none";
+            //overlay.style.display = "none";
         });
 
         editPostDiv.append(editTitle);
@@ -281,7 +281,7 @@ export class View {
 
         this.#model.addEventListener("editpost", () => {
             editPostDiv.style.display = "block";
-            overlay.style.display = "block";
+           // overlay.style.display = "block";
         });
 
         this.#model.addEventListener("refresh", () => {

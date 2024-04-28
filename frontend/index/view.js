@@ -193,8 +193,10 @@ export class View {
             postDiv.append(postUser);
             postDiv.append(postTitle);
             postDiv.append(postContent);
-            if (user.username === this.#user.username || this.#user.isAdmin) {
+            if (user.username === this.#user.username) {
                 postDiv.append(editBtn);
+            }
+            if (user.username === this.#user.username || this.#user.isAdmin) {
                 postDiv.append(deleteBtn);
             }
             postDiv.append(likeBtn);

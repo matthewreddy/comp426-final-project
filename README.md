@@ -46,3 +46,9 @@ Once you've done all that, everything should work properly and you should be abl
 
 ### Observing the Weather
 
+Nothing to talk about? Our application includes a side panel of the current weather in Chapel Hill, so that's something to talk about! This weather data is pulled from the [National Weather Service's API](https://www.weather.gov/documentation/services-web-api), as well as the icon images.
+
+
+## Sources
+
+[background image](https://www.google.com/url?sa=i&url=https%3A%2F%2Funsplash.com%2Fwallpapers%2Fdesign%2Fgeometric&psig=AOvVaw0XDSzgcmmEYiXHBf7x6qbj&ust=1714441652124000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCKCxiP-m5oUDFQAAAAAdAAAAABAE)

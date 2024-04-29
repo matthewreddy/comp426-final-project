@@ -30,6 +30,7 @@ export class View {
         logoutBtn.innerText = "Logout";
         logoutBtn.addEventListener("click", async () => {
             window.location.href = "../login/login.html";
+            sessionStorage.removeItem("user");
         });
 
         let currentUserMessage = document.createElement("div");

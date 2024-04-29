@@ -28,8 +28,11 @@ export class AdminView {
         this.#controller.getAllUsers().then(users => {
             for (let u of users) {
                 if (this.#user.username === u.username) userExists = true;
-                if (this.#user.username === u.username && !u.isAdmin) window.location.href = "../index/index.html";
-               
+                if (this.#user.username === u.username && !u.isAdmin) {
+                    this.#user.isAdmin = false;
+                    sessionStorage.setItem("user", JSON.stringify(this.#user));
+                    window.location.href = "../index/index.html";
+                }
                 let userDiv = document.createElement("div");
 
                 let admin = document.createElement("p");
@@ -81,6 +84,7 @@ export class AdminView {
 
             if (!userExists) {
                 window.location.href = "../login/login.html";
+                sessionStorage.removeItem("user");
             }
         })
         .catch(e => {

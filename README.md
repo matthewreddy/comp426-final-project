@@ -16,7 +16,7 @@ Certain users can be designated as administrative users and have special permiss
 
 ## Demonstration Video
 
-A video demonstrating all features of the application at a more in-depth level can be found [here](https://youtube.com) (link pending).
+A video demonstrating all features of the application at a more in-depth level can be found [here](https://youtu.be/aiWotZjGtEY).
 
 ## Running the Application
 
